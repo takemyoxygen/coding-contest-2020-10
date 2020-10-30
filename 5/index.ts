@@ -17,9 +17,9 @@ function solve(input: Input){
         while(powerToConsume > 0){
             const currentMin = sortedMinutes[index]
             if(currentMin.tasksConsumed > 0){
-            const consumeNow = Math.min(powerToConsume, sortedMinutes[index].powerLeft)
+            const consumeNow = 1
             powerToConsume -= consumeNow
-            currentMin.tasksConsumed -=
+            currentMin.tasksConsumed -= 1
             result += consumeNow *sortedMinutes[index].price
             sortedMinutes[index].powerLeft -= consumeNow
             if (consumeNow > 0) {
@@ -47,11 +47,11 @@ function main(file: string, output: string) {
       return `${task.id} ` + taskConsumption.map(([minute, power]) => `${minute.index} ${power}`).join(' ')
     })
   ]
-  fs.writeFileSync(`./4/data/${output}`, lines.join('\r\n'))
+  fs.writeFileSync(`./5/data/${output}`, lines.join('\r\n'))
 }
 
-// main('4/data/level4_example.in', 'test')
+// main('./5/data/level5_example.in', 'test.out')
 
-for(let i of [3, 4, 5]){
-  main(`./4/data/level4_${i}.in`, i.toString())
+for(let i of [1, 2, 3, 4, 5]){
+  main(`./5/data/level5_${i}.in`, i.toString())
 }

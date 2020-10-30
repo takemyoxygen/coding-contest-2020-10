@@ -13,9 +13,17 @@ export function read(input: string): Input{
     return {id, power, startInterval, endInterval};
   });
 
-  const minutes: Minute[] = prices.map((price, index) => ({index, price, powerLeft: Number(maxPower), tasksConsumed:  Number(maxConcurrentTasks)}))
+  const maxPowerNumber = Number(maxPower)
 
-  return {minutes, tasks, maxBill: Number(maxBill), maxConcurrentTasks: Number(maxConcurrentTasks)};
+  const minutes: Minute[] = prices.map((price, index) => ({index, price, powerLeft: maxPowerNumber, tasksIdsConsumed: new Set<number>()}))
+
+  return {
+    minutes,
+    tasks,
+    maxBill: Number(maxBill),
+    maxConcurrentTasks: Number(maxConcurrentTasks),
+    priceOfMinute: min => Math.ceil(min.price * (1 + (maxPowerNumber - min.powerLeft) / maxPowerNumber))
+  };
 }
 
 // console.log(read('./4/data/level4_example.in'))
